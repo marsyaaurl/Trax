@@ -1,8 +1,15 @@
 const express = require('express');
 const mysql = require('mysql');
-const cors = require('cors');
 
 const app = express();
+
+const cors = require('cors');
+
+app.use(cors({
+    origin: 'https://trax-delta.vercel.app/',
+    methods: ['GET', 'POST', 'DELETE'],
+    allowedHeaders: ['Content-Type']
+}));
 
 // Middleware
 app.use(cors());
