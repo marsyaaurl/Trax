@@ -7,9 +7,9 @@ function Todo() {
     const [deleted, setDeleted] = useState(true)
     useEffect(() => {
         if(deleted){
-            setDeleted(false)
+            setDeleted(false);
         }
-        axios.get('/todo')
+        axios.get('https://trax-production-fbfd.up.railway.app/todo')
             .then((res) => {
                 console.log('Data fetched:', res.data);
                 setTask(res.data);
@@ -18,16 +18,16 @@ function Todo() {
                 console.error('Error fetching data:', err);
             });
     }, [deleted]);
-
+    
     function handleDelete(ID){
-        axios.delete(`/delete_todo/${ID}`)
-        .then((res)=>{
-            if (res.data.success)
-                setDeleted(true)
-        })
-        .catch((err)=> console.log(err))
+        axios.delete(`https://trax-production-fbfd.up.railway.app/delete_todo/${ID}`)
+            .then((res) => {
+                if (res.data.success)
+                    setDeleted(true);
+            })
+            .catch((err) => console.log(err));
     }
-
+    
     const [values, setValues] = useState({
         TaskName: '',
         Due: '',
@@ -35,18 +35,17 @@ function Todo() {
         Urgency: '',
         Status: ''
     });
-
+    
     const navigate = useNavigate();
-
+    
     function handleSubmit(e) {
-
         // Validasi sederhana
         if (!values.TaskName || !values.Due || !values.Category || !values.Urgency || !values.Status) {
             alert('Please fill in all fields!');
             return;
         }
-
-        axios.post('/add_task', values)
+    
+        axios.post('https://trax-production-fbfd.up.railway.app/add_task', values)
             .then((res) => {
                 console.log(res);
                 navigate('/Todo');
